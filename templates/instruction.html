@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block body %}
+<link rel="stylesheet" href="{{url_for('static', filename =
+    'css/instruction.css')}}" />
+<div class="main-container">
+        <h3>Instructions</h3>
+        <div class="sub-container">
+            <pre>
+            The term end examination will be conducted in an online proctored mode. Candidate can take the test from the
+            safe and secure environment of his/her home, with a desktop/laptop/smartphone(with a webcam) and an internet connection
+            (un-interrupted internet speed is desirable).Candidates are requested to take the test honestly, ethically, and should
+            follow all the instructions.
+            
+            Basic Instructions for Online Examinations:A.General information:
+            
+            1.The examination will
+            comprise of Objective type Multiple Choice Questions (MCQs) 
+            2.All questions are compulsory and each carries One mark.
+            
+            
+            MARKING for the wrong answers.B.Information & Instructions:
+            
+            1.The examination does not require using any paper, pen,
+            pencil and calculator.
+            2.Every student will take the examination on a Laptop/Desktop/Smart Phone
+            3.On computer screen
+            every studentwill be given objective type type Multiple Choice Questions (MCQs).
+            
+        </pre>
+        </div>
+        <div class="contain-buttons">
+            <div class="button">
+                <a href="/">Previous</a>
+            </div>
+            <div class="button">
+                <a href="/exam">Next</a>
+            </div>
+        </div>
+    
+</div>
+
+
+{% endblock %}

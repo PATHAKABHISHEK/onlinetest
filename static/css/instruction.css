@@ -1,0 +1,44 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  width: 80vw;
+}
+
+.sub-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.contain-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 800px;
+}
+
+.button {
+  width: 100px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px 0px 16px 0px;
+  font-size: larger;
+  text-shadow: cornsilk;
+  color: white;
+  background: #1fa2ff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #1fa2ff,
+    #12d8fa,
+    #a6ffcb
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb);
+}

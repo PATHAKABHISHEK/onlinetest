@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% block body %}
+
+<link rel="stylesheet" href="{{url_for('static', filename =
+    'css/exam.css')}}" />
+
+<div class="main-container">
+  <div class="question-container">
+      <h3 id="h3"></h3>
+      <br>
+      <br>
+      <div class="options">
+          <div class="option-container">
+              <!-- <input type="radio"> -->
+              <p id="1"></p>
+          </div>
+        <div  class="option-container">
+            <!-- <input type="radio"> -->
+            <p id="2"></p>
+        </div>
+        <div  class="option-container">
+            <!-- <input type="radio"> -->
+            <p id="3"></p>
+        </div>
+        <div  class="option-container">
+            <!-- <input type="radio"> -->
+            <p id="4"></p>
+        </div>
+      </div>
+      <div>
+          <p style="height:50px;width:100px; background-color:aqua;display: flex; flex-direction: row;align-items: center; justify-content:center" onclick="next()">Next</p>
+      </div>
+  </div>
+  <div class="another-container">
+    <div class="timer">Sunday, 10, 1998</div>
+    <div class="other-questions">
+        <div class="single-question">1</div>
+        <div class="single-question">2</div>
+        <div class="single-question">3</div>
+        <div class="single-question">4</div>
+        <div class="single-question">5</div>
+        <div class="single-question">6</div>
+        <div class="single-question">7</div>
+        <div class="single-question">8</div>
+        <div class="single-question">9</div>
+        <div class="single-question">10</div>
+    </div>
+  </div>
+</div>
+<script>
+    let questionBank =  '{{question_bank|tojson}}';
+    questionBank = JSON.parse(questionBank);
+    let index = 0;
+    function change() {
+        document.getElementById("h3").textContent = questionBank[index]["question"];
+        document.getElementById("1").textContent = questionBank[index]["options"][0];
+        document.getElementById("2").textContent = questionBank[index]["options"][1];
+        document.getElementById("3").textContent = questionBank[index]["options"][2];
+        document.getElementById("4").textContent = questionBank[index]["options"][3];
+    }
+    change();
+    function next() {
+        if(index < 9) {
+             index++;
+             change();
+        }
+       
+        
+    }
+</script>
+
+{% endblock %}
