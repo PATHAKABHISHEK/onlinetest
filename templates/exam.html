@@ -9,40 +9,47 @@
       <br>
       <br>
       <div class="options">
-          <div class="option-container">
-              <!-- <input type="radio"> -->
-              <p id="1"></p>
-          </div>
-        <div  class="option-container">
+        <a href="#" style="text-decoration: none; color: black"> 
+        <div class="option-container" onclick="optionSelected(0)" id="1">
+           
             <!-- <input type="radio"> -->
-            <p id="2"></p>
         </div>
-        <div  class="option-container">
-            <!-- <input type="radio"> -->
-            <p id="3"></p>
+        </a>
+        <a href="#" style="text-decoration: none; color: black">
+        <div  class="option-container" onclick="optionSelected(1)" id="2">
+        <!-- <input type="radio"> -->
+
         </div>
-        <div  class="option-container">
-            <!-- <input type="radio"> -->
-            <p id="4"></p>
+        </a>
+        <a href="#" style="text-decoration: none; color: black">
+        <div class="option-container" onclick="optionSelected(2)" id="3">
+        <!-- <input type="radio"> -->
+
         </div>
+        </a>
+        <a href="#" style="text-decoration: none; color: black">
+        <div  class="option-container" onclick="optionSelected(3)" id="4">
+        <!-- <input type="radio"> -->
+        </div>
+        </a>
       </div>
       <div>
-          <p style="height:50px;width:100px; background-color:aqua;display: flex; flex-direction: row;align-items: center; justify-content:center" onclick="next()">Next</p>
+          <p class="next-button" onclick="next()">Next</p>
       </div>
   </div>
   <div class="another-container">
-    <div class="timer">Sunday, 10, 1998</div>
+    <div class="timer" id ="time">2:00</div>
     <div class="other-questions">
-        <div class="single-question">1</div>
-        <div class="single-question">2</div>
-        <div class="single-question">3</div>
-        <div class="single-question">4</div>
-        <div class="single-question">5</div>
-        <div class="single-question">6</div>
-        <div class="single-question">7</div>
-        <div class="single-question">8</div>
-        <div class="single-question">9</div>
-        <div class="single-question">10</div>
+        <div class="single-question" id="1-que" onclick="loadQuestion(1)">1</div>
+        <div class="single-question" id="2-que" onclick="loadQuestion(2)">2</div>
+        <div class="single-question" id="3-que" onclick="loadQuestion(3)">3</div>
+        <div class="single-question" id="4-que" onclick="loadQuestion(4)">4</div>
+        <div class="single-question" id="5-que" onclick="loadQuestion(5)">5</div>
+        <div class="single-question" id="6-que" onclick="loadQuestion(6)">6</div>
+        <div class="single-question" id="7-que" onclick="loadQuestion(7)">7</div>
+        <div class="single-question" id="8-que" onclick="loadQuestion(8)">8</div>
+        <div class="single-question" id="9-que" onclick="loadQuestion(9)">9</div>
+        <div class="single-question" id="10-que" onclick="loadQuestion(10)">10</div>
     </div>
   </div>
 </div>
@@ -50,6 +57,9 @@
     let questionBank =  '{{question_bank|tojson}}';
     questionBank = JSON.parse(questionBank);
     let index = 0;
+    let selected = false;
+    let selectedOption = -1;
+    let results = [-2, -2, -2, -2, -2, -2, -2, -2, -2, -2];
     function change() {
         document.getElementById("h3").textContent = questionBank[index]["question"];
         document.getElementById("1").textContent = questionBank[index]["options"][0];
@@ -60,12 +70,117 @@
     change();
     function next() {
         if(index < 9) {
-             index++;
-             change();
+            if (selected == true) {
+                results[index] = selectedOption;
+                document.getElementById(`${selectedOption + 1}`).style.backgroundColor = "#ccc";
+                document.getElementById(`${index + 1}-que`).style.backgroundColor = "blue";
+    
+            }
+            
+            index++;
+            change();
+        } else {
+            if(index == 9) {
+                if (selected == true) {
+                    results[index] = selectedOption;
+                    document.getElementById(`${selectedOption + 1}`).style.backgroundColor = "#ccc";
+                    document.getElementById(`${index + 1}-que`).style.backgroundColor = "blue";
+                    
+                }
+                fetch('/check', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "results": 
+                        results
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                }).then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    return Promise.reject(response);
+                }).then(function (data) {
+                    // console.log(data["count"]);
+                    // alert(`You have ${data["count"]} right`);
+                    window.localStorage.setItem("count", data["count"]);
+                    location.href = "/check";
+                }).catch(function (error) {
+                    console.warn('Something went wrong.', error);
+                });
+
+                
+                console.log(results)
+            }
+           
         }
        
         
     }
+
+    function optionSelected(i) {
+        if (selected == true){
+            selected = false;
+            document.getElementById(`${selectedOption + 1}`).style.backgroundColor = "#ccc";
+            selectedOption = -2;
+
+        }
+        if(!selected) {
+            selected = true;
+            selectedOption = i;
+            document.getElementById(`${selectedOption + 1}`).style.backgroundColor = "green";
+        }
+        
+    }
+
+    function loadQuestion(i) {
+        index = i-1;
+        change();
+    }
+    function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    alert("Time Over");
+                    fetch('/check', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            "results":
+                                results
+                        }),
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8'
+                        }
+                    }).then(function (response) {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        return Promise.reject(response);
+                    }).then(function (data) {
+                        window.localStorage.setItem("count", data["count"]);
+                        location.href = "/check";
+                    }).catch(function (error) {
+                        console.warn('Something went wrong.', error);
+                    });
+                    
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            var tenMinutes = 60 * 2,
+                display = document.querySelector('#time');
+            startTimer(tenMinutes, display);
+        };
 </script>
 
 {% endblock %}

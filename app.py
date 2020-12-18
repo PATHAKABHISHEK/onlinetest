@@ -1,7 +1,8 @@
 # Server For the Application
 
 from flask import Flask
-from flask import render_template
+from flask import render_template, request, jsonify
+import json
 
 app = Flask(__name__)
 
@@ -39,7 +40,7 @@ question_bank = [
             "Sun Flower",
             "Daisy",
             "Rose",
-            "Brinjal"
+            "Cherry blossom"
         ],
         "answer": "Cherry blossom"
     },
@@ -125,6 +126,26 @@ question_bank = [
     }
 
 ]
+
+
+@app.route("/check",  methods=['GET', 'POST'])
+def calculateResult():
+    if request.method == "GET":
+        return render_template("results.html")
+    if request.method == "POST":
+        content = request.data
+        content = content.decode('utf8').replace("'", '"')
+        content = json.loads(content)
+        count = 0
+
+        for i in range(len(question_bank)):
+            if content["results"][i] >= 0:
+                if content["results"][i] == question_bank[i]["options"].index(question_bank[i]["answer"]):
+                    count += 1
+        print(count)
+        return jsonify(
+            count=count
+        )
 
 
 if __name__ == "__main__":
