@@ -102,3 +102,19 @@
   cursor: pointer;
   color: white;
 }
+
+.submit-button {
+  height: 50px;
+  width: 150px;
+  background-color: lawngreen;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 100px;
+}
+
+.submit-button:hover {
+  cursor: pointer;
+  color: white;
+}
