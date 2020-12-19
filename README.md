@@ -28,8 +28,8 @@ git push heroku master
 
 ![image Info](https://github.com/PATHAKABHISHEK/onlinetest/blob/main/static/images/Screenshot_2020-12-18%20Online%20Test_1.png "Instructions Page")
 
-![image Info](https://github.com/PATHAKABHISHEK/onlinetest/blob/main/static/images/static/images/Screenshot_2020-12-18%20Online%20Test_2.png "Exam Page")
+![image Info](https://github.com/PATHAKABHISHEK/onlinetest/blob/main/static/images/Screenshot_2020-12-18%20Online%20Test_2.png "Exam Page")
 
-![image Info](https://github.com/PATHAKABHISHEK/onlinetest/blob/main/static/images/static/images/Screenshot_2020-12-18%20Online%20Test_3.png "Selecting Options")
+![image Info](https://github.com/PATHAKABHISHEK/onlinetest/blob/main/static/images/Screenshot_2020-12-18%20Online%20Test_3.png "Selecting Options")
 
-![image Info](https://github.com/PATHAKABHISHEK/onlinetest/blob/main/static/images/static/images/Screenshot_2020-12-18%20Online%20Test_4.png "Getting Result")
+![image Info](https://github.com/PATHAKABHISHEK/onlinetest/blob/main/static/images/Screenshot_2020-12-18%20Online%20Test_4.png "Getting Result")
